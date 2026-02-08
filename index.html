@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Be My Valentine?</title>
+<style>
+  body {
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    width: 360px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    position: relative;
+  }
+
+  h1 { color: #ff4d6d; }
+  h2 { margin-top: 10px; }
+  p { font-size: 16px; color: #444; }
+  .buttons { margin-top: 20px; position: relative; height: 60px; }
+
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+
+  #yes { background: #ff4d6d; color: white; margin-right: 20px; }
+  #no { background: #ccc; position: absolute; }
+  #message { display: none; margin-top: 20px; font-size: 18px; color: #ff4d6d; }
+  #question { display: none; margin-top: 20px; }
+  input { padding: 8px; border-radius: 10px; border: 1px solid #ccc; width: 80%; margin-top: 10px; }
+  #cat { display: none; position: absolute; width: 50px; bottom: 0; right: 0; cursor: grab; transition: all 0.3s ease; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h1>Hi Gang 😁💕</h1>
+  <p>Before you answer… press play 🎶</p>
+
+  <!-- Spotify Embed -->
+  <iframe
+    src="https://open.spotify.com/embed/track/3n6vX1VYkHqzXw8Uqf4W4H"
+    width="100%"
+    height="80"
+    frameborder="0"
+    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+  </iframe>
+
+  <h2>Will you be my Valentine? 🌹</h2>
+
+  <div class="buttons">
+    <button id="yes" onclick="yesClicked()">Yes 💘</button>
+    <button id="no" onmouseover="moveNo()" onclick="noClicked()">No 🙈</button>
+  </div>
+
+  <img id="cat" src="https://i.imgur.com/Jb8VJ4J.png" alt="cat pulling no">
+
+  <div id="message"></div>
+
+  <div id="question">
+    <p>What would you like to eat or drink? 🍽️🥤</p>
+    <input type="text" id="food" placeholder="Type here...">
+    <button onclick="submitAnswer()">Submit</button>
+  </div>
+</div>
+
+<script>
+let noClickCount = 0;
+const noBtn = document.getElementById("no");
+const cat = document.getElementById("cat");
+
+function moveNo() {
+  cat.style.display = "block"; // show cat
+  noBtn.style.transform = "translate(0px, -50px)";
+  cat.style.right = "60px";
+  cat.style.bottom = "0px";
+}
+
+function yesClicked() {
+  if(noClickCount < 2){
+    document.getElementById("message").innerText = "THEN IT'S A DATE! 💞";
+    document.getElementById("message").style.display = "block";
+    document.getElementById("question").style.display = "block";
+    noBtn.style.display = "none";
+  } else if(noClickCount === 2) {
+    document.getElementById("message").innerText = "YES? OR YES? 😏";
+    document.getElementById("message").style.display = "block";
+    noBtn.style.display = "none";
+    document.getElementById("question").style.display = "block";
+  }
+}
+
+function noClicked() {
+  noClickCount++;
+  if(noClickCount === 1){
+    document.getElementById("message").innerText = "Ngeee nakay lain ka date noh 🤨";
+    document.getElementById("message").style.display = "block";
+  } else if(noClickCount === 2){
+    document.getElementById("message").innerText = "Hoy 😡";
+    document.getElementById("message").style.display = "block";
+  } else if(noClickCount === 3){
+    document.getElementById("message").innerText = "YES? OR YES? 😏";
+    document.getElementById("message").style.display = "block";
+    noBtn.style.display = "none";
+    document.getElementById("question").style.display = "block";
+  }
+}
+
+function submitAnswer() {
+  const answer = document.getElementById("food").value.trim();
+  if(answer) {
+    document.getElementById("question").style.display = "none";
+    document.getElementById("message").innerText = "YOU ARE NOW OFFICIALLY MY VALENTINA 🥳💖";
+  }
+}
+</script>
+
+</body>
+</html>
